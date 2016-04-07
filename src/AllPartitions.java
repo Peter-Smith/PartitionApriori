@@ -23,7 +23,9 @@ public AllPartitions(String fileLocation){
 public void scanPartitions(){
 	int fileNum = 0;
 	boolean keepGoing = true;
+	System.out.println("Scanning...");
 	while(keepGoing){
+		System.out.println(fileNum);
 		keepGoing = scanPartition(fileLocation,fileNum);
 		fileNum++;
 	}
@@ -33,7 +35,9 @@ public void scanPartitions(){
 public void countFromPartitions(){
 	int fileNum = 0;
 	boolean keepGoing = true;
+	System.out.println("Counting...");
 	while(keepGoing){
+		System.out.println(fileNum);
 		keepGoing = countFromPartition(fileLocation,fileNum);
 		fileNum++;
 	}
