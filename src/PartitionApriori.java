@@ -2,7 +2,7 @@
 public class PartitionApriori {
 	public final static String PARTITIONS_LOCATION = "D:\\Scrap\\nycTaxiTripData2013\\output\\output";
 	
-	private static double support_threshhold;
+	private static double support_threshhold, confidence_threshhold;
 
 	public static double getSupport_threshhold() {
 		return support_threshhold;
@@ -14,6 +14,7 @@ public class PartitionApriori {
 	
 	public static void main(String[] args){
 		support_threshhold = 0.3;
+		confidence_threshhold = 0.3;
 
 		AllPartitions ap = new AllPartitions(PARTITIONS_LOCATION);
 		ap.scanPartitions();
@@ -22,9 +23,11 @@ public class PartitionApriori {
 		ap.testCandidates();
 		
 		SetsByLengthContainer s = new SetsByLengthContainer();
+		RuleContainer rc = new RuleContainer(confidence_threshhold);
 		s.addAll(ap.getAllCandidates());
+		s.generateRule(rc);
 		
-		System.out.println(s.toString());
+		System.out.println(rc.toString());
 		System.out.println(ap.getTotalSize());
 		
 	}

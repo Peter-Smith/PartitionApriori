@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 
 public class SetsByLengthContainer {
@@ -33,6 +34,37 @@ private void addMoreListsUntil(int index){
 		sets.add(newList);
 	}
 }
+
+public void generateRule(RuleContainer target){
+	for(int length = 2; length <= sets.size(); length++){
+		Iterator<ItemSet> iter = fetchOfLength(length).iterator();
+		while(iter.hasNext()){
+			ItemSet a = iter.next();
+			generateRule(a,target);
+		}
+	}
+}
+
+private void generateRule(ItemSet superset, RuleContainer target){
+	// Once we have a superset, iterate through
+	// the lists of itemsets smaller than it, and create rules from em.
+	// And have the RuleContainer reject any undesirable rules.
+	// Of course, a must contain b!
+	for (int length = superset.size()-1; length>0; length--){
+		Iterator<ItemSet> iter = fetchOfLength(length).iterator();
+		while(iter.hasNext()){
+			ItemSet subset = iter.next();
+			if(superset.containsAll(subset)){
+				Rule r = new Rule(subset,superset);
+				target.add(r);
+			}
+		}
+	}
+}
+	
+	private ArrayList<ItemSet> fetchOfLength(int length){
+		return sets.get(length-1);
+	}
 
 public String toString(){
 	String result="";
