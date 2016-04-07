@@ -20,7 +20,11 @@ public class PartitionApriori {
 		ap.countFromPartitions();
 		System.out.println(ap.getAllCandidates().toString());
 		ap.testCandidates();
-		System.out.println(ap.getAllCandidates().toString());
+		
+		SetsByLengthContainer s = new SetsByLengthContainer();
+		s.addAll(ap.getAllCandidates());
+		
+		System.out.println(s.toString());
 		System.out.println(ap.getTotalSize());
 		
 	}
