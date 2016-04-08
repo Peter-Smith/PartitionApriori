@@ -6,12 +6,23 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 
+/**
+ * Class managing I/O to a series of different partition files.
+ * Capable of generating candidates, as well as receiving final counts on those candidates.
+ * @author Peter
+ *
+ */
 public class AllPartitions {
 	private HashSet<ItemSet> allCandidates;
 	private String fileLocation;
 	private static long totalSize;
 	
 	
+/**
+ * Creates an AllPartitions lookup object with reference to a series of files of form fileLocation,
+ * where fileLocation+#+.csv will find files.
+ * @param fileLocation
+ */
 public AllPartitions(String fileLocation){
 	this.fileLocation = fileLocation;
 	allCandidates = new HashSet<ItemSet>();
@@ -20,6 +31,9 @@ public AllPartitions(String fileLocation){
 
 
 
+/**
+ * Scans partitions to generate candidates.
+ */
 public void scanPartitions(){
 	int fileNum = 0;
 	boolean keepGoing = true;
@@ -32,6 +46,9 @@ public void scanPartitions(){
 	
 }
 
+/**
+ * After candidates have been generated, checks the final count on all candidates.
+ */
 public void countFromPartitions(){
 	int fileNum = 0;
 	boolean keepGoing = true;
@@ -81,6 +98,10 @@ private boolean countFromPartition(String location, int fileNum){
 }
 
 // keep only candidates that pass minimum support
+/**
+ * Rejects candidates that do not meet the minimum support.
+ * Only use after counting, or will discard all candidates.
+ */
 public void testCandidates(){
 	HashSet<ItemSet> oldSet = allCandidates;
 	allCandidates = new HashSet<ItemSet>();
@@ -94,12 +115,20 @@ public void testCandidates(){
 	}
 }
 
+/**
+ * Returns all candidates, along with their counts, if they've been counted.
+ * (Else, counts will be 0.)
+ * @return Set of all candidates
+ */
 public HashSet<ItemSet> getAllCandidates() {
 	return allCandidates;
 }
 
 
 
+/**
+ * @return Total size found by last scan (by any AllPartitions object.)
+ */
 public static long getTotalSize() {
 	return totalSize;
 }

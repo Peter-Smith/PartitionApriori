@@ -3,20 +3,27 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.TreeSet;
 
 
+/**
+ * Object that generates locally relevant candidate item sets.
+ * @author Peter
+ *
+ */
 public class Partition {
 	private File sourceFile;
 	ArrayList<ArrayList<Candidate>> candidateLists; // by size
 	private short size;
 	private boolean done; // thing that knows whether we're still making item sets
 	
+/**
+ * Creates a new Partition, with reference to a partition file.
+ * @param sourceFile A partition file
+ */
 public Partition(File sourceFile){
 	this.sourceFile = sourceFile;
 	size = 0;
@@ -59,6 +66,10 @@ private void make1ItemSets(){
 	
 }
 
+/**
+ * Makes length 1 itemsets, then joins them (while fruitful) to generate all candidates.
+ * Uses the Candidate class's join rules.
+ */
 public void generateCandidates(){
 	make1ItemSets();
 	while(!done){
@@ -66,6 +77,10 @@ public void generateCandidates(){
 	}
 }
 
+/**
+ * After generateCandidates() has been run, returns the result list.
+ * @return A list of all candidates.
+ */
 public ArrayList<Candidate> allCandidates(){
 	ArrayList<Candidate> result = new ArrayList<Candidate>();
 	Iterator<ArrayList<Candidate>> listIter = candidateLists.iterator();
@@ -88,7 +103,7 @@ private void joinSets(){
 		while(iter2.hasNext()){
 			b = iter2.next();
 			if(a.shouldJoin(b)){
-				result = a.intersect(b);
+				result = a.join(b);
 				if(relevant(result)){
 					newCandidates.add(result);
 				}
@@ -107,6 +122,11 @@ private boolean relevant(Candidate c){
 	return ((double)c.supportCount() / size) >= PartitionApriori.getSupport_threshhold();
 }
 
+/**
+ * Adds the local support of considered ItemSets to the running tally for those ItemSets.
+ * @param sets Set of ItemSets to count support for
+ * @throws FileNotFoundException If partition file does not exist
+ */
 public void countSupport(Set<ItemSet> sets) throws FileNotFoundException{
 	Iterator<ItemSet> setsIter;
 	String attributeLine;
@@ -127,6 +147,10 @@ public void countSupport(Set<ItemSet> sets) throws FileNotFoundException{
 	}
 
 
+/**
+ * Returns size of this partition, known after candidates have been generated from it.
+ * @return The size of this partition
+ */
 public short getSize() {
 	return size;
 }

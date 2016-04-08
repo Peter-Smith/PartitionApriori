@@ -5,6 +5,7 @@ import java.util.Iterator;
 /**
  * @author Peter
  * A container for rules that rejects rules with too low confidence.
+ * This is effectively unchanged from my assignment 3 and is not novel code.
  */
 public class RuleContainer {
 	/**

@@ -4,6 +4,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 
+/**
+ * Class that sorts ItemSets by length.
+ * It also handles rule generation.
+ * @author Peter
+ *
+ */
 public class SetsByLengthContainer {
 	private ArrayList<ArrayList<ItemSet>> sets;
 
@@ -35,6 +41,10 @@ private void addMoreListsUntil(int index){
 	}
 }
 
+/**
+ * Creates rules by comparing the support for item sets and their frequent subsets.
+ * @param target Container to store new rules in
+ */
 public void generateRule(RuleContainer target){
 	for(int length = 2; length <= sets.size(); length++){
 		Iterator<ItemSet> iter = fetchOfLength(length).iterator();

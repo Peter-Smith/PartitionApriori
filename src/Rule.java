@@ -5,6 +5,7 @@ import java.util.Iterator;
  * @author Peter
  * A rule of form antecedent -> (antecedent,consequent).
  * (Where antecedent is a subset of consequent.)
+ * This is effectively unchanged from my assignment 3 and is not novel code.
  */
 public class Rule {
 	ItemSet antecedent, consequent;

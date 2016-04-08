@@ -1,19 +1,37 @@
 import java.util.TreeSet;
 
-//Having graduated from candidate-hood, an ItemSet is now only a Set and its Support.
+/**
+ * ItemSet that is known to be locally frequent in one partition and is now being considered
+ * in its global context.
+ * @author Peter
+ *
+ */
 public class ItemSet{
 	private TreeSet<String> items;
 	private long count;
+	/**
+	 * Creates a new ItemSet from a set of items.
+	 * @param items A set of items.
+	 */
 	public ItemSet(TreeSet<String> items) {
 		this.items = items;
 		count = 0;
 	}
 	
+	/**
+	 * Creates a new ItemSet with the same items as provided candidate.
+	 * @param c Candidate
+	 */
 	public ItemSet(Candidate c){
 		this.items = c.getItems();
 		count = 0;
 	}
 	
+	/**
+	 * Creates new itemSet with known items and count.
+	 * @param items Set of items
+	 * @param count Count of transactions containing this ItemSet
+	 */
 	public ItemSet(TreeSet<String> items, long count){
 		this.items = items;
 		this.count = count;
